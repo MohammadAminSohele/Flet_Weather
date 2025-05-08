@@ -11,7 +11,7 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.padding = 30
+    page.padding = None
 
     def get_weather_icon(icon_code):
         return f"https://openweathermap.org/img/wn/{icon_code}@2x.png"
@@ -40,7 +40,7 @@ def main(page: ft.Page):
 
     city_input = ft.TextField(
         label="نام شهر را وارد کنید",
-        width=300,
+        width=None,
         autofocus=True,
         suffix=ft.IconButton(
             icon=ft.icons.SEARCH,
@@ -58,20 +58,20 @@ def main(page: ft.Page):
                     ft.Text(date.strftime("%a"), size=14),
                     ft.Image(
                         src=get_weather_icon(entry['weather'][0]['icon']),
-                        width=40,
-                        height=40
+                        width=None,
+                        height=None
                     ),
                     ft.Text(f"{entry['main']['temp']:.1f}°C"),
                     ft.Text(
                         f"{entry['main']['temp_min']:.0f}°|{entry['main']['temp_max']:.0f}°",
-                        size=12
+                        size=None
                     )
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=5
+                spacing=None
             ),
-            padding=10,
-            border_radius=10,
+            padding=None,
+            border_radius=None,
             border=ft.border.all(1, ft.colors.BLUE_100),
             bgcolor=ft.colors.BLUE_50
         )
@@ -103,12 +103,12 @@ def main(page: ft.Page):
                 controls=[
                     ft.Image(
                         src=get_weather_icon(current_res["weather"][0]["icon"]),
-                        width=100,
-                        height=100
+                        width=None,
+                        height=None
                     ),
                     ft.Column(
                         controls=[
-                            ft.Text(f"{current_res['main']['temp']:.1f}°C", size=40),
+                            ft.Text(f"{current_res['main']['temp']:.1f}°C", size=None),
                             ft.Text(current_res["weather"][0]["description"].capitalize()),
                             ft.Text(f"احساس واقعی {current_res['main']['feels_like']:.1f}°C")
                         ]
@@ -141,7 +141,7 @@ def main(page: ft.Page):
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER
                     )
                 ],
-                spacing=30,
+                spacing=None,
                 alignment=ft.MainAxisAlignment.CENTER
             )
 
@@ -158,23 +158,23 @@ def main(page: ft.Page):
 
             forecast_row = ft.Row(
                 controls=forecast_items,
-                spacing=20,
+                spacing=None,
                 scroll=ft.ScrollMode.AUTO
             )
 
             weather_info.controls.extend([
-                ft.Text(current_res["name"], size=30, weight=ft.FontWeight.BOLD),
+                ft.Text(current_res["name"], size=None, weight=ft.FontWeight.BOLD),
                 current_main,
                 current_details,
-                ft.Divider(height=20),
+                ft.Divider(height=None),
                 ft.Container(
-                    content=ft.Text(recommendation, size=16, color=ft.colors.BLUE_800),
-                    padding=10,
-                    border_radius=10,
+                    content=ft.Text(recommendation, size=None, color=ft.colors.BLUE_800),
+                    padding=None,
+                    border_radius=None,
                     bgcolor=ft.colors.BLUE_100,
-                    margin=10
+                    margin=None
                 ),
-                ft.Text("پیش‌بینی 5 روز آینده", size=20, weight=ft.FontWeight.BOLD),
+                ft.Text("پیش‌بینی 5 روز آینده", size=None, weight=ft.FontWeight.BOLD),
                 forecast_row
             ])
             
@@ -190,12 +190,12 @@ def main(page: ft.Page):
         ft.Column(
             [
                 city_input,
-                ft.Divider(height=20, color=ft.colors.TRANSPARENT),
+                ft.Divider(height=None, color=ft.colors.TRANSPARENT),
                 ft.Container(
                     content=weather_info,
-                    padding=20,
-                    border_radius=10,
-                    border=ft.border.all(2, ft.colors.BLUE_100),
+                    padding=None,
+                    border_radius=None,
+                    border=ft.border.all(None, ft.colors.BLUE_100),
                     bgcolor=ft.colors.BLUE_50
                 )
             ],
