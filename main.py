@@ -11,12 +11,16 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.padding = None
+
+    # Determine if the app is running on a mobile or desktop screen
+    is_mobile = page.width < 600
+
+    # Set padding based on screen size
+    page.padding = 20 if is_mobile else 40
 
     def get_weather_icon(icon_code):
         return f"https://openweathermap.org/img/wn/{icon_code}@2x.png"
 
-    
     def get_weather_recommendation(weather_condition):
         recommendations = {
             "rain": "☔ امروز بارانی است! چتر همراه داشته باشید.",
@@ -35,12 +39,11 @@ def main(page: ft.Page):
             "squall": "🌬️ بادهای شدید در راه است. مراقب باشید.",
             "tornado": "🌪️ احتمال طوفان شدید! به پناهگاه بروید."
         }
-        
         return recommendations.get(weather_condition.lower(), "✅ شرایط جوی عادی است. روز خوبی داشته باشید!")
 
     city_input = ft.TextField(
         label="نام شهر را وارد کنید",
-        width=None,
+        width=250 if is_mobile else 400,
         autofocus=True,
         suffix=ft.IconButton(
             icon=ft.icons.SEARCH,
@@ -55,23 +58,23 @@ def main(page: ft.Page):
         return ft.Container(
             content=ft.Column(
                 [
-                    ft.Text(date.strftime("%a"), size=14),
+                    ft.Text(date.strftime("%a"), size=12 if is_mobile else 14),
                     ft.Image(
                         src=get_weather_icon(entry['weather'][0]['icon']),
-                        width=None,
-                        height=None
+                        width=40 if is_mobile else 60,
+                        height=40 if is_mobile else 60
                     ),
                     ft.Text(f"{entry['main']['temp']:.1f}°C"),
                     ft.Text(
                         f"{entry['main']['temp_min']:.0f}°|{entry['main']['temp_max']:.0f}°",
-                        size=None
+                        size=10 if is_mobile else 12
                     )
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=None
+                spacing=5 if is_mobile else 10
             ),
-            padding=None,
-            border_radius=None,
+            padding=5 if is_mobile else 10,
+            border_radius=5 if is_mobile else 10,
             border=ft.border.all(1, ft.colors.BLUE_100),
             bgcolor=ft.colors.BLUE_50
         )
