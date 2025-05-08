@@ -16,7 +16,7 @@ def main(page: ft.Page):
     def get_weather_icon(icon_code):
         return f"https://openweathermap.org/img/wn/{icon_code}@2x.png"
 
-    # تابع جدید: پیشنهادهای هوشمند بر اساس وضعیت آب‌وهوا
+    
     def get_weather_recommendation(weather_condition):
         recommendations = {
             "rain": "☔ امروز بارانی است! چتر همراه داشته باشید.",
@@ -36,7 +36,6 @@ def main(page: ft.Page):
             "tornado": "🌪️ احتمال طوفان شدید! به پناهگاه بروید."
         }
         
-        # تبدیل توصیه به فارسی (اختیاری)
         return recommendations.get(weather_condition.lower(), "✅ شرایط جوی عادی است. روز خوبی داشته باشید!")
 
     city_input = ft.TextField(
@@ -96,7 +95,6 @@ def main(page: ft.Page):
 
             weather_info.controls.clear()
             
-            # دریافت پیشنهاد هوشمند
             weather_condition = current_res["weather"][0]["main"].lower()
             recommendation = get_weather_recommendation(weather_condition)
             
@@ -169,7 +167,6 @@ def main(page: ft.Page):
                 current_main,
                 current_details,
                 ft.Divider(height=20),
-                # اضافه کردن بخش پیشنهادهای هوشمند
                 ft.Container(
                     content=ft.Text(recommendation, size=16, color=ft.colors.BLUE_800),
                     padding=10,
